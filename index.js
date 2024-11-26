@@ -1,9 +1,9 @@
 const express=require('express');
-const URL=require('./models/url')
-
 const app=express()
+
 const urlRoute=require('./routes/url')
 const path=require('path')
+
 const port=8006
 const {connectToMongoDb}=require('./connect')
 const staticRoute=require('./routes/staticRouter')
@@ -19,4 +19,3 @@ app.use('/', staticRoute)
 
 
 app.listen(port,()=>console.log(`Server started at port ${port}`))
-
