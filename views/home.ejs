@@ -73,6 +73,63 @@
             border-radius: 5px;
             border: 1px solid #ddd;
         }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    /* Table headers */
+    th {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+
+    /* Table rows */
+    td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    /* Alternating row colors for better readability */
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    /* Styling the table container */
+    div {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #fff;
+    }
+
+    /* Styling the table header */
+    thead th {
+        text-transform: uppercase;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    table-layout: auto;  
+}
+
+
+    td, th {
+        font-size: 14px;
+    }
 
     </style>
 </head>
@@ -89,10 +146,38 @@
     <% if (locals.newShortId) { %>
         <p>URL Generated: http://localhost:8006/url/<%= newShortId %></p>
     <% } %>
-    <ul>
+    <!-- <ul>
         <% urls.forEach(url => { %>
             <li>Generated Url:<%= url.shortId %></li> 
         <% }); %>
-    </ul>
+    </ul> -->
+    <div>
+        <% if (locals.newShortId) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>shortId</th>
+                        <th>Redirect</th>
+                        <th>Clicks</th>
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    <% urls.forEach((url,index) => { %>
+                        <tr>
+                            <td><%= index+1%></td>
+                            <td><%= url.shortId%></td>
+                            <td><%= url.redirectURL%></td>
+                            <td><%= url.visitHistory.length%></td>
+                        </tr>
+                   
+                    <% }) %>
+
+                </tbody>
+            </table>
+            <% } %>
+ 
+    </div>
 </body>
 </html>
