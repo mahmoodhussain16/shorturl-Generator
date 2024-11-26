@@ -2,7 +2,6 @@ const express = require("express");
 const {handleGenerateNewShortUrl,handleGetAnalytics,visitHistory}=require("../controllers/url");
 
 
-
 const router=express.Router();
 
 

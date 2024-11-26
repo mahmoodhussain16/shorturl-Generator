@@ -13,8 +13,15 @@ async function handleGenerateNewShortUrl(req, res) {
           redirectURL: body.url,
           visitHistory: [],
       });
+    
+      const allUrls = await URL.find({});
+      
+     
+      return res.render("home", {
+        urls: allUrls,
+        newShortId: shortID, 
+      });
 
-      return res.json({ id: shortID });
   } catch (err) {
       console.error('Error generating short URL:', err);
       return res.status(500).json({ error: 'Internal Server Error' });
