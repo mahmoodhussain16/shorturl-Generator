@@ -17,6 +17,24 @@ app.use(express.urlencoded({extended:false}))
 app.use('/url',urlRoute)
 app.use('/', staticRoute)
 app.use('/user',userRoute)
+router.post('login',(req,res)=>{
+
+    //save session
+    const sessionKey=Date.now();
+    session[sessionKey]=user.email
+    res.cookie('session_id',sessionKey)
+    return res.status(200).json(user)
+})
+router.use((req,res,next)=>{
+    const sessionKey=req.cookies.session_id;
+    if(!sessionKey){
+        return res.status(401).json({message:"Unauthorized"})
+    }
+})
+const user=db.users.find((user)=>user.email===session)
+req.user=user
+
+next()
 
 
 app.listen(port,()=>console.log(`Server started at port ${port}`))

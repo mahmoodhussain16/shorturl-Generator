@@ -4,6 +4,6 @@ const {handleUserSignUp,handleUserLogin}=require('../controllers/user')
 
 
 router.post('/',handleUserSignUp)
-router.post('/user/login',handleUserLogin)
+
 
 module.exports=router
