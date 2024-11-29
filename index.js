@@ -6,11 +6,12 @@ const cookieParser = require('cookie-parser');
 const urlRoute=require('./routes/url')
 const path=require('path')
 
-const port=8006
+const port=8007
 const {connectToMongoDb}=require('./connect')
 const staticRoute=require('./routes/staticRouter')
 const userRoute=require('./routes/user')
 const { MongoClient } = require('mongodb');
+const { restrictToLoggedInUserOnly, checkAuth } = require('./middleware/auth');
 connectToMongoDb('mongodb://127.0.0.1:27017/short-url')
 .then(()=>console.log('MongoDb connected'))  
 const session = {};
@@ -33,8 +34,10 @@ app.set('views', path.resolve('./views'))
 app.use(express.json())
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}))
-app.use('/url',urlRoute)
-app.use('/', staticRoute)
+
+
+app.use('/url',restrictToLoggedInUserOnly, urlRoute)
+app.use('/',checkAuth, staticRoute)
 app.use('/user',userRoute)
 
 

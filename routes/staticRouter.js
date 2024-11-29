@@ -1,9 +1,11 @@
 const express = require("express");
 const { getAllUrls} = require("../controllers/url");
 
+
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+    if (!req.user) return res.redirect("/login");
     const allUrls = await getAllUrls;
     return res.render("home", {
         urls: allUrls,
